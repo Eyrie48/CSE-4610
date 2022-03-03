@@ -24,7 +24,8 @@ int blocksize;          // block size in bytes
 #endif
 
 /*
-to compile 
+to compile on linux
+cd proj1
 $c++ -c sdisk.cpp source.cpp
 $c++ -o proj1 sdisk.o source.o
 ./proj1
