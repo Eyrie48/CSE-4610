@@ -1,5 +1,5 @@
 #include "sdisk.h"
-#include "sdisk.cpp"
+
 
 int main()
 {

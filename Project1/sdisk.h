@@ -23,5 +23,10 @@ int blocksize;          // block size in bytes
 
 #endif
 
-//to compile 
-//c++ -c sdisk.cpp
+/*
+to compile 
+$c++ -c sdisk.cpp source.cpp
+$c++ -o proj1 sdisk.o source.o
+./proj1
+cat disk0.txt
+*/

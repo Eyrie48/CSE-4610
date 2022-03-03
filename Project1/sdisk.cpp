@@ -12,12 +12,14 @@ Sdisk::Sdisk(string diskname, int numberofblocks, int blocksize)
 
 	//might break the project later on for part 3, 4
 
+	/*
 	f.open("diskname", ios::in | ios::out);
 	if (!f)
 	{
 		cout << "Error opening file" << endl;
 		exit(0);
 	}
+	*/
 
 	//looking for a c_string
 	file1.open(diskname.c_str());
