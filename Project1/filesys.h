@@ -1,15 +1,10 @@
 #pragma once
 #ifndef FILESYS_H
 #define FILESYS_H
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <vector>
-#include <sstream>
-using namespace std;
 
+#include "sdisk.h"
 
-class Filesys
+class Filesys: public Sdisk
 {
 public:
 Filesys(string filename,int numberofblocks, int blocksize);
