@@ -9,7 +9,7 @@ class Filesys: public Sdisk
 public:
 Filesys(string filename,int numberofblocks, int blocksize);
 int fsclose();
-int newfile(string file);
+int newfile(string newname);
 int rmfile(string file);
 int getfirstblock(string file);
 int addblock(string file, string block);
