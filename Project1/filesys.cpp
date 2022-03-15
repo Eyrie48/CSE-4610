@@ -1,5 +1,6 @@
 #include "filesys.h"
 //#include "sdisk.h"
+#include "tempfile.cpp"
 
 Filesys::Filesys(string filename, int numberofblocks, int blocksize):Sdisk(filename, numberofblocks, blocksize)
 {
@@ -125,9 +126,28 @@ int Filesys::fsclose()
 
 }
 
-int Filesys::newfile(string file)
+int Filesys::newfile(string newname)
 {
+    //                 rootsize
+    for(int i = 0; i < filename.size(); i++)
+    {
+        if(filename[i] == newname)
+        {
+            cout << "file exist" << endl;
+        }
+    }
 
+    for(int i =0; i < rootsize; i++)
+    {
+        if(filename =< "XXXXX")
+        {
+            filename[i] = newname; 
+            return 1;
+        }
+    }
+
+    cout << "No space in Root" << endl;
+    return 0;
 }
 
 int Filesys::rmfile(string file)
@@ -135,14 +155,70 @@ int Filesys::rmfile(string file)
 
 }
 
+//My code for getfirstblock 
 int Filesys::getfirstblock(string file)
 {
-
+    for(int i = 0; i < rootsize; i++)
+    {
+        if(file == filename[i])
+        {
+            //otherwise firstblock 
+            //firstblock[i]; ??
+            //firstblock;
+            return firstblock[i];
+        }
+        else
+        {
+            //return -1 if does not exist 
+            //cout << file << " does not exist" << endl;
+            return -1;
+        }
+    }
 }
 
+//addblock("file1, buffer")
 int Filesys::addblock(string file, string block)
 {
+    int blockid = getfirstblock(file);
+    if(blockid == -1)
+    {
+        cout << file << " does not exist" << endl;
+        return 0;
+    }
+    
+    int allocate = fat[0];
+    if(allocate == 0)
+    {
+        cout << "no space on disk" << endl;
+        return 0;
+    }
 
+    fat[0] = fat[fat[0]];
+    fat[allocate] = 0;
+
+    if(blockid == 0)
+    {
+        for(int i = 0; i < rootsize; i++)
+        {
+            if(filename[i] == file)
+            {
+                firstblock[i] = allocate;
+            }
+        }
+    }
+    else
+    {
+        while(fat[blockid] != 0)
+        {
+            blockid = fat[blockid];
+        }
+
+        fat[blockid] = allocate;
+    }
+
+    fssynch();
+    putblock(allocate, block);
+    return 1;
 }
 
 int Filesys::delblock(string file, int blocknumber)

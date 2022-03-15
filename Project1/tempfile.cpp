@@ -1,6 +1,8 @@
+
 #include <sstream>
 #include "sdisk.h"
 
+/*
 string buffer = "1 2 3 4 5 6";
 
 istringstream istream;
@@ -15,6 +17,7 @@ ostringstream ostream;
 ostream<< "Hello World";
 
 string buffer = ostream.str();
+*/
 
 ////////////////////////////////////////////////////////////////////////////
 vector<string> block(string s, int b)//   s-buffer , b-blocksize
