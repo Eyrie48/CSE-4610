@@ -1,6 +1,6 @@
 #include "filesys.h"
 //#include "sdisk.h"
-#include "tempfile.cpp"
+#include "block.cpp"
 
 Filesys::Filesys(string filename, int numberofblocks, int blocksize):Sdisk(filename, numberofblocks, blocksize)
 {
@@ -106,7 +106,8 @@ int Filesys::readfs(){
         string f;
         int n;
         //vs code error? 
-        istream1 << f << n;
+        //before error << f << 
+        istream1 >> f >> n;
         filename.push_back(f);
         firstblock.push_back(n);
     }
@@ -114,7 +115,8 @@ int Filesys::readfs(){
     int k;
     for(int i = 0; i < getnumberofblocks(); i++)
     {
-        istream2 << k;
+        //before error << f <<
+        istream2 >> k;
         fat.push_back(k);
     }
     return 1;
@@ -139,7 +141,8 @@ int Filesys::newfile(string newname)
 
     for(int i =0; i < rootsize; i++)
     {
-        if(filename =< "XXXXX")
+        //filename
+        if(filename[i] <= "XXXXX")
         {
             filename[i] = newname; 
             return 1;
@@ -166,14 +169,11 @@ int Filesys::getfirstblock(string file)
             //firstblock[i]; ??
             //firstblock;
             return firstblock[i];
-        }
-        else
-        {
-            //return -1 if does not exist 
-            //cout << file << " does not exist" << endl;
-            return -1;
-        }
+        }     
+        //return -1 if does not exist 
+        //cout << file << " does not exist" << endl;   
     }
+    return -1;
 }
 
 //addblock("file1, buffer")
@@ -221,6 +221,24 @@ int Filesys::addblock(string file, string block)
     return 1;
 }
 
+bool Filesys::checkblock(string file, int block)
+{
+    //check if block number block is in file 
+    int blockid = getfirstblock(file);
+    if(blockid == -1)
+    {
+        return false;
+    }
+    while(blockid != 0)
+    {
+        if(blockid == block)
+        {
+            return true;
+        }
+        blockid == fat[blockid];
+    }
+}
+
 int Filesys::delblock(string file, int blocknumber)
 {
 
@@ -228,15 +246,38 @@ int Filesys::delblock(string file, int blocknumber)
 
 int Filesys::readblock(string file, int blocknumber, string& buffer)
 {
-
+    if(checkblock(file, blocknumber))
+    {
+        getblock(blocknumber, buffer);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 int Filesys::writeblock(string file, int blocknumber, string buffer)
 {
-
+    if(checkblock(file, blocknumber))
+    {
+        putblock(blocknumber, buffer);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 int Filesys::nextblock(string file, int blocknumber)
 {
-
+    if(checkblock(file, blocknumber))
+    {
+        return fat[blocknumber];
+    }
+    else 
+    {
+        return -1;
+    }
 }

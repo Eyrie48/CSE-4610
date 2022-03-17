@@ -1,5 +1,6 @@
 #pragma once
 #include "sdisk.h"
+#include "filesys.h"
 #ifndef BLOCK
 #define BLOCK
 
