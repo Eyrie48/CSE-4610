@@ -17,6 +17,7 @@ int delblock(string file, int blocknumber);
 int readblock(string file, int blocknumber, string& buffer);
 int writeblock(string file, int blocknumber, string buffer);
 int nextblock(string file, int blocknumber);
+
 bool checkblock(string file, int block);
 vector<string> block (string buffer, int b); 
 
