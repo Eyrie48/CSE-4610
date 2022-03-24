@@ -182,8 +182,8 @@ int Sdisk::putblock(int blocknumber, string buffer)
 	}
 
 	output.seekp(blocknumber * blocksize);
-	
-	for(int i = 0; i < buffer.length(); i++)
+
+	for(int i = 0; i < buffer.length(); ++i)
 	{
 		output.put(buffer[i]);
 	}

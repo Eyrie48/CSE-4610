@@ -241,7 +241,7 @@ bool Filesys::checkblock(string file, int block)
 
 int Filesys::delblock(string file, int blocknumber)
 {
-
+    
 }
 
 int Filesys::readblock(string file, int blocknumber, string& buffer)
