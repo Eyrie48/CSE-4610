@@ -135,7 +135,7 @@ int Sdisk::getblock(int blocknumber, string& buffer)
 	}
 
 	input.seekg(blocknumber * blocksize);
-	for(int i = 0; i < buffer.length(); ++i)
+	for(int i = 0; i < blocksize; ++i)
 	{
 		input.get(temp);
 		buffer.push_back(temp);
