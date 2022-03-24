@@ -241,7 +241,39 @@ bool Filesys::checkblock(string file, int block)
 
 int Filesys::delblock(string file, int blocknumber)
 {
-    
+    if(!checkblock(file, blocknumber))
+    {
+        cout << "Can't do it" << endl;
+        return 0;
+    }
+
+    int block = getfirstblock(file);
+    if(block == blocknumber)
+    {
+        for(int  i = 0; i < filename.size(); i++)
+        {
+            if(filename[i] == file)
+            {
+                firstblock[i] = fat[blocknumber];
+                break;
+            }
+        }
+    }
+    else
+    {
+        int b = block;
+        while(fat[b] != blocknumber)
+        {
+            b = fat[b];
+        }
+        fat[b] == fat[blocknumber];
+    }
+
+    fat[blocknumber] = fat[0];
+    fat[0] = blocknumber;
+    fssynch();
+
+    return 1;
 }
 
 int Filesys::readblock(string file, int blocknumber, string& buffer)
