@@ -1,5 +1,5 @@
 #include "sdisk.h"
-
+using namespace std;
 
 Sdisk::Sdisk(string diskname, int numberofblocks, int blocksize)
 {
