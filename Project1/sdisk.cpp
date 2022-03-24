@@ -51,7 +51,7 @@ Sdisk::Sdisk(string diskname, int numberofblocks, int blocksize)
 	if(!input.is_open())
 	{
 		output.open(diskname.c_str());
-		for(int i = 0; i < numberofblocks * blocksize; i++)
+		for(int i = 0; i < numberofblocks * blocksize; ++i)
 		{
 			output << "#";
 		}
@@ -120,9 +120,10 @@ int Sdisk::getblock(int blocknumber, string& buffer)
 		return 0;
 	}*/
 	if (blocknumber > (numberofblocks -1))
-		{
-			return 0;
-		}
+	{
+		return 0;
+	}
+	
 	ifstream input; 
 	char temp;
 
@@ -133,15 +134,15 @@ int Sdisk::getblock(int blocknumber, string& buffer)
 		return 0;
 	}
 
-		input.seekg(blocknumber * blocksize);
-		for(int i = 0; i < buffer.length(); i++)
-		{
-			input.get(buffer[i]);
-			buffer.push_back(temp);
-		}
+	input.seekg(blocknumber * blocksize);
+	for(int i = 0; i < buffer.length(); ++i)
+	{
+		input.get(temp);
+		buffer.push_back(temp);
+	}
 
-		input.close();
-		return 1;
+	input.close();
+	return 1;
 }
 
 int Sdisk::putblock(int blocknumber, string buffer)
@@ -169,9 +170,9 @@ int Sdisk::putblock(int blocknumber, string buffer)
 	}
 	*/
 	if (blocknumber > (numberofblocks -1))
-		{
-			return 0;
-		}
+	{
+		return 0;
+	}
 	fstream output; 
 	output.open(diskname.c_str(), ios::in | ios::out);
 		
@@ -180,12 +181,13 @@ int Sdisk::putblock(int blocknumber, string buffer)
 		return 0;
 	}
 
-		output.seekp(blocknumber * blocksize);
-		for(int i = 0; i < buffer.length(); i++)
-		{
-			output.put(buffer[i]);
-		}
+	output.seekp(blocknumber * blocksize);
+	
+	for(int i = 0; i < buffer.length(); i++)
+	{
+		output.put(buffer[i]);
+	}
 
-		output.close();
-		return 1;
+	output.close();
+	return 1;
 }
