@@ -19,7 +19,7 @@ int writeblock(string file, int blocknumber, string buffer);
 int nextblock(string file, int blocknumber);
 
 bool checkblock(string file, int block);
-vector<string> block (string buffer, int b); 
+vector<string> block(string buffer, int b); 
 
 private:
 int rootsize;           // maximum number of entries in ROOT
