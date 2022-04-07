@@ -6,7 +6,7 @@ int main()
 {
 	//first test
 	//Sdisk disk0 = Sdisk("disk0.txt", 256, 128);
-	
+	//return 0;
 	/*
 	Sdisk disk1("test1",16,32);
   	string block1, block2, block3, block4;
@@ -108,5 +108,5 @@ int main()
 
 	fsys.delblock("file2",blocknumber);
 */
-	return 0;
+	
 }
