@@ -127,7 +127,8 @@ int Filesys::readfs(){
 
 int Filesys::fsclose()
 {
-
+    //not sure
+    return 1;
 }
 
 int Filesys::newfile(string newname)
@@ -346,13 +347,15 @@ vector<string> block(string s, int b)//   s-buffer , b-blocksize
 }
 
 vector<string> Filesys::ls()
-{ vector string flist;
-  for (int i=0; i<filename.size(); i++)
-      {
+{ 
+    vector<string> flist;
+    for (int i=0; i<filename.size(); i++)
+    {
         if (filename[i] != "XXXXX")
-           {
-             flist.push_back(filename[i]);
-           }
-      }
-  return flist;
+        {
+           flist.push_back(filename[i]);
+        }
+    }
+    
+    return flist;
 }
