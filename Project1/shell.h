@@ -1,13 +1,6 @@
 #pragma once
 #ifndef SHELL_H
 #define SHELL_H
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <vector>
-#include <sstream>
-#include <cstdlib>
-using namespace std;
 
 #include "filesys.h"
 #include "sdisk.h"

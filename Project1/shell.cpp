@@ -48,7 +48,18 @@ int del(string file)
 }// deletes the file
 int Shell::type(string file)
 {
+    //edit for type 
+    int block = getfirstblock(file1);
+    int code = newfile(file2);
+    while(block != 0)
+    {
+        string buffer;
+        readblock(file1, block, buffer);
+        addblock(file2, buffer);
+        block = nextblock(file1, block);
+    }
 
+    return 1;
 }//lists the contents of file
 int Shell::copy(string file1, string file2)
 {
