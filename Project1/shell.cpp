@@ -1,14 +1,19 @@
 #include "shell.h"
 
-Shell::Shell(string filename, int numberofblocks, int blocksize)
+Shell::Shell(string filename, int numberofblocks, int blocksize):Filesys(filename, numberofblocks, blocksize)
 {
-
+    //
 }
 
 int Shell::dir()
 {
-
+    vector<string> flist = ls();
+    for (int i=0; i< flist.size(); i++)
+    {
+        cout << flist[i] << endl;
+    }
 }// lists all files
+
 int Shell::add(string file)
 {
     int code =getfirstblock(file);
@@ -17,16 +22,21 @@ int Shell::add(string file)
         cout << "File exists";
         return 0;
     }
-    code = newfile(filename);
+    code = newfile(file);
     if(code ==0)
     {
         cout << "failed";
         return 0;
     }
+
+    //not sure added buffere for error
+    string buffer;
+    ///////////////////////
+    
     vector<string> blocks = block(buffer, getblocksize());
     for(int i = 0; i < blocks.size(); i++)
     {
-        code = addblock(filename, blocks[i]);
+        code = addblock(file, blocks[i]);
         if(code == 0)
         {
             cout << "error occured";
@@ -35,7 +45,8 @@ int Shell::add(string file)
     }
     return 1;
 }
-int del(string file)
+
+int Shell::del(string file)
 {
     int block = getfirstblock(file);
     while(block != 0)

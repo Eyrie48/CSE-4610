@@ -20,6 +20,7 @@ int nextblock(string file, int blocknumber);
 
 bool checkblock(string file, int block);
 vector<string> block(string buffer, int b); 
+vector<string> ls();
 
 private:
 int rootsize;           // maximum number of entries in ROOT

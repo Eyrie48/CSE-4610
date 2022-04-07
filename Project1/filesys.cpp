@@ -344,3 +344,15 @@ vector<string> block(string s, int b)//   s-buffer , b-blocksize
 
     return blocks;
 }
+
+vector<string> Filesys::ls()
+{ vector string flist;
+  for (int i=0; i<filename.size(); i++)
+      {
+        if (filename[i] != "XXXXX")
+           {
+             flist.push_back(filename[i]);
+           }
+      }
+  return flist;
+}
