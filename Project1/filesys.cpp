@@ -85,7 +85,8 @@ int Filesys::fssynch()
     {
         putblock(2+1, blocks2[i]);
     }
-
+    //change from other
+    return 1;
 }
 
 int Filesys::readfs(){
@@ -139,6 +140,8 @@ int Filesys::newfile(string newname)
         if(filename[i] == newname)
         {
             cout << "file exist" << endl;
+            //change from other 
+            return 0;
         }
     }
 
@@ -148,6 +151,10 @@ int Filesys::newfile(string newname)
         if(filename[i] <= "XXXXX")
         {
             filename[i] = newname; 
+            //change from other
+            firstblock[i] = 0;
+            fssynch();
+            //change from other 
             return 1;
         }
     }
@@ -222,6 +229,7 @@ int Filesys::addblock(string file, string block)
     fssynch();
     putblock(allocate, block);
     return 1;
+    //return allocate;
 }
 
 bool Filesys::checkblock(string file, int block)
@@ -317,7 +325,7 @@ int Filesys::nextblock(string file, int blocknumber)
     }
 }
 
-vector<string> block(string s, int b)//   s-buffer , b-blocksize
+vector<string> Filesys::block(string s, int b)//   s-buffer , b-blocksize
 {
     vector<string> blocks;
     int numberofblocks;

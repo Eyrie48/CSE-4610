@@ -33,3 +33,6 @@ $c++ -o proj1 sdisk.o source.o
 ./proj1
 cat disk0.txt
 */
+
+// g++ abc.cpp bcd.cpp 
+//./a.out
