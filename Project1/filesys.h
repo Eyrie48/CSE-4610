@@ -3,7 +3,8 @@
 #define FILESYS_H
 
 #include "sdisk.h"
-
+#include <sstream>
+#include <cstdlib>
 class Filesys: public Sdisk
 {
 public:

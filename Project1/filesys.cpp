@@ -1,5 +1,7 @@
 #include "filesys.h"
 #include "sdisk.h"
+#include <sstream>
+#include <cstdlib>
 using namespace std;
 
 //#include "block.cpp"
