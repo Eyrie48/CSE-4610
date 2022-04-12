@@ -8,6 +8,7 @@ int main()
 	//Sdisk disk0 = Sdisk("disk0.txt", 256, 128);
 	//return 0;
 	/*
+	//Project 1
 	Sdisk disk1("test1",16,32);
   	string block1, block2, block3, block4;
   	for (int i=1; i<=32; i++) block1=block1+"1";
@@ -23,7 +24,7 @@ int main()
 	*/
 /////////////////////////////////////
 
-
+	//Project 2
 	Sdisk disk1("disk1",256,128);
 	Filesys fsys("disk1",256,128);
 	fsys.newfile("file1");
