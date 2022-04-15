@@ -168,7 +168,25 @@ int Filesys::newfile(string newname)
 
 int Filesys::rmfile(string file)
 {
+    for(int i = 0; i < rootsize; i++)
+    {
+        if( filename[i] == file)
+        {
+            if(firstblock[0] != 0)
+            {
+                cout << "file not empty" << endl;
+                return 0;
+            }
+        }
+        else
+        {
+            filename[i] = "XXXXX";
+            fssynch();
+            return 1;
+        }
+    }
 
+    return 0;
 }
 
 //My code for getfirstblock 
