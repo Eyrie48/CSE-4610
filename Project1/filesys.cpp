@@ -131,7 +131,8 @@ int Filesys::readfs(){
 int Filesys::fsclose()
 {
     //not sure
-    return 1;
+    fssynch();
+    
 }
 
 int Filesys::newfile(string newname)
