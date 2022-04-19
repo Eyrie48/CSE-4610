@@ -57,6 +57,7 @@ int Shell::del(string file)
     rmfile(file);
 
 }// deletes the file
+
 int Shell::type(string file)
 {
     //edit for type 
@@ -72,6 +73,7 @@ int Shell::type(string file)
 
     return 1;
 }//lists the contents of file
+
 int Shell::copy(string file1, string file2)
 {
     int block = getfirstblock(file1);
