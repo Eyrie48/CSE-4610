@@ -49,3 +49,49 @@ int Table::build_table(string input_file)
 
     return 1;
 }
+
+int Table::indexSearch(string value)
+{
+    string buffer; 
+    int blockid= getfirstblock(indexfile);
+    while(blockid != 0)
+    {
+        string b;
+        readblock(indexfile, blockid, b);
+        buffer += b;
+        blockid = nextblock(indexfile, blockid);
+    }
+
+    istringstream istream;
+    istream.str(buffer);
+    string k, b;
+    istream >> k >> b;
+    while(k != "XXXXX")
+    {
+        if(k == value)
+        {
+            return b; 
+        }
+
+        istream >> k >> b; 
+    }
+
+    return 0;
+}
+
+int Table:: search(string value)
+{
+    int ecode = indexSearch(value);
+    if(ecode == 0)
+    {
+        cout << "record not found";
+        return 0;
+    }
+    else
+    {
+        string buffer;
+        ecode = readblock(flatfile, ecode, buffer);
+        cout << buffer;
+        return 1;
+    }
+}
