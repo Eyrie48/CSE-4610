@@ -8,7 +8,9 @@ using namespace std;
 
 Filesys::Filesys(string filename, int numberofblocks, int blocksize):Sdisk(filename, numberofblocks, blocksize)
 {
+    //change to 10
     rootsize = getblocksize() / 12;
+    //change to 5
     fatsize = (getnumberofblocks() * 6) / getblocksize() + 1;
 
     string buffer;
@@ -23,12 +25,12 @@ Filesys::Filesys(string filename, int numberofblocks, int blocksize):Sdisk(filen
     {
         buildfs();
         cout << "Building file system" << endl;
-        return;
+        //return;
     }
     else
     {
         readfs();
-        return;
+        //return;
     }
 }
 
@@ -132,6 +134,8 @@ int Filesys::fsclose()
 {
     //not sure
     fssynch();
+    //changed 
+    return 0;
     
 }
 

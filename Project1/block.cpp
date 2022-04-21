@@ -1,8 +1,6 @@
-#pragma once
+#include "block.h"
 #include "sdisk.h"
 #include "filesys.h"
-#ifndef BLOCK
-#define BLOCK
 
 vector<string> block(string s, int b)//   s-buffer , b-blocksize
 {
