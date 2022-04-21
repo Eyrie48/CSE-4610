@@ -27,12 +27,12 @@ Filesys::Filesys(string filename, int numberofblocks, int blocksize):Sdisk(filen
     {
         buildfs();
         cout << "Building file system" << endl;
-        //return;
+        return;
     }
     else
     {
         readfs();
-        //return;
+        return;
     }
 }
 
@@ -129,7 +129,6 @@ int Filesys::readfs(){
         fat.push_back(k);
     }
     return 1;
-    
 }
 
 int Filesys::fsclose()
@@ -137,7 +136,7 @@ int Filesys::fsclose()
     //not sure
     fssynch();
     //changed 
-    return 0;
+    return 1;
     
 }
 
@@ -275,6 +274,8 @@ bool Filesys::checkblock(string file, int block)
         }
         blockid == fat[blockid];
     }
+    //added for void
+    return false;
 }
 
 int Filesys::delblock(string file, int blocknumber)
