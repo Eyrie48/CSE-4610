@@ -30,5 +30,4 @@ vector<string> block(string s, int b)//   s-buffer , b-blocksize
 
     return blocks;
 }
-#endif
 //c++ -c block.cpp
