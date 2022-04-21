@@ -4,6 +4,8 @@
 #include <cstdlib>
 using namespace std;
 
+#include "block.h"
+
 //#include "block.cpp"
 
 Filesys::Filesys(string filename, int numberofblocks, int blocksize):Sdisk(filename, numberofblocks, blocksize)
@@ -350,6 +352,7 @@ int Filesys::nextblock(string file, int blocknumber)
     }
 }
 
+/*
 vector<string> Filesys::block(string s, int b)//   s-buffer , b-blocksize
 {
     vector<string> blocks;
@@ -378,6 +381,7 @@ vector<string> Filesys::block(string s, int b)//   s-buffer , b-blocksize
 
     return blocks;
 }
+*/
 
 vector<string> Filesys::ls()
 { 
