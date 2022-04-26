@@ -2,6 +2,7 @@
 #include "filesys.h"
 #include "shell.h"
 #include "table.h"
+#include "block.h"
 //#include "block.cpp"
 
 int main()
