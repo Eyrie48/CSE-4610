@@ -38,13 +38,24 @@ Filesys::Filesys(string filename, int numberofblocks, int blocksize):Sdisk(filen
 
 int Filesys::buildfs()
 {
+	//change from files 
+    ostringstream ostream;
+	
     //build the root
     for(int i = 0; i < rootsize; i++)
     {
         filename.push_back("XXXXX");
         firstblock.push_back(0);
+	//change from file
+	ostream << "XXXXX" << " " << 0 << " ";
     }
 
+
+    string buffer = ostream.str();
+    vector<string>blocks = block(buffer, getblocksize());
+    putblock(1, blocks[0]);
+    ostringstream ostream2;
+    
     //build FAT
     fat.push_back(fatsize+2);
     fat.push_back(-1);
@@ -58,9 +69,25 @@ int Filesys::buildfs()
     {
         fat.push_back(i + 1);
     }
-
+	
     fat[fat.size()-1] = 0;
-
+    
+    //change from file
+    //ostringstream ostream2;
+    for(int i = 0; i < fat.size(); i++)
+    {
+	ostream2 << fat[i] << " ";
+    }
+     
+    
+    string buffer2 = ostream2.str();
+    vector<string>blocks2 = block(buffer2, getblocksize());
+    
+    for(int i =0; i < blocks2.size(); i++)
+    {
+    	putblock(2+i, blocks2[i]);
+    }
+	/////////////////////////
     return fssynch();
 }
 
@@ -134,7 +161,7 @@ int Filesys::readfs(){
 int Filesys::fsclose()
 {
     //not sure
-    fssynch();
+    //fssynch();
     //changed 
     return 1;
     
@@ -142,8 +169,8 @@ int Filesys::fsclose()
 
 int Filesys::newfile(string newname)
 {
-    //                 rootsize
-    for(int i = 0; i < filename.size(); i++)
+    //                 rootsize or filename.size()
+    for(int i = 0; i < rootsize; i++)
     {
         if(filename[i] == newname)
         {
@@ -226,12 +253,16 @@ int Filesys::addblock(string file, string block)
     if(allocate == 0)
     {
         cout << "no space on disk" << endl;
-        return 0;
+	//change from file
+        return -1;
     }
-
+    //change to else statement from file 
+    //else
+    //{
     fat[0] = fat[fat[0]];
     fat[allocate] = 0;
-
+    //} 
+    /////
     if(blockid == 0)
     {
         for(int i = 0; i < rootsize; i++)
@@ -251,11 +282,11 @@ int Filesys::addblock(string file, string block)
 
         fat[blockid] = allocate;
     }
-
-    fssynch();
     putblock(allocate, block);
-    return 1;
-    //return allocate;
+    fssynch();
+    //putblock(allocate, block);
+    //return 1;
+    return allocate;
 }
 
 bool Filesys::checkblock(string file, int block)
@@ -275,7 +306,7 @@ bool Filesys::checkblock(string file, int block)
         blockid == fat[blockid];
     }
     //added for void
-    return false;
+    //return false;
 }
 
 int Filesys::delblock(string file, int blocknumber)
@@ -358,28 +389,24 @@ vector<string> Filesys::block(string s, int b)//   s-buffer , b-blocksize
 {
     vector<string> blocks;
     int numberofblocks;
-
     if(s.length()%b==0){
         numberofblocks=s.length()/b;
     }
     else{
         numberofblocks=s.length()/b+1;
     }
-
     string tempblock;
     for(int i=0; i < numberofblocks; i++)
     {
         tempblock =s.substr(b*i, b);
         blocks.push_back(tempblock);
     }
-
     //add #'s to 
     int lastblock = blocks.size()-1;
     for(int i = blocks[lastblock].length(); i < b; i++)
     {
         blocks[lastblock] += "#"; 
     }
-
     return blocks;
 }
 */
