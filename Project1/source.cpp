@@ -3,7 +3,6 @@
 #include "shell.h"
 #include "table.h"
 #include "block.h"
-//#include "block.cpp"
 
 int main()
 {
@@ -145,7 +144,7 @@ using namespace std;
        cout << "$";
        getline(cin,s);
        int firstblank=s.find(' ');
-	   
+
        if (firstblank < s.length()) s[firstblank]='#';
        int secondblank=s.find(' ');
        command=s.substr(0,firstblank);
@@ -161,6 +160,8 @@ using namespace std;
        if (command=="search")
           {
             // The variable op1 is the date
+			getline(cin, op1);
+			table.search(op1);
           }
        if (command=="add")
           {
