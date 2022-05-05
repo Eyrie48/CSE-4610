@@ -104,7 +104,7 @@ int Filesys::fssynch()
     
     //unable to define getblock?
     vector<string> blocks1 = block(buffer1, getblocksize());
-    putblock(1, blocks1[0]);
+    
 
     ostringstream ostream2; 
     for(int i = 0; i < fat.size(); i++)
@@ -114,12 +114,14 @@ int Filesys::fssynch()
 
     string buffer2 = ostream2.str();
     vector<string> blocks2 = block(buffer2, getblocksize());
+    putblock(1, blocks1[0]);
+
     for(int i = 0; i < blocks2.size(); i++)
     {
         putblock(2+1, blocks2[i]);
     }
     //change from other
-    return 1;
+    return 0;
 }
 
 int Filesys::readfs(){
