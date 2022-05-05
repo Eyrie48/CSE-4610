@@ -172,7 +172,7 @@ using namespace std;
        if (command=="del")
           {
             // The variable op1 is the file
-			shell.del(op2);
+			shell.del(op1);
           }
        if (command=="type")
           {
