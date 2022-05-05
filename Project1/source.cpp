@@ -97,7 +97,8 @@ int main()
  //It inputs commands as : command op1 op2
  //You should modify it to work for your implementation.
  //
- Shell shell("sdisk.txt", 256, 128);
+ 
+ Shell shell("disk1", 256, 128);
  string s;
  string command="go";
  string op1,op2;
@@ -140,7 +141,7 @@ int main()
        if (command=="copy")
           {
             // The variable op1 is the source file and the variable op2 is the destination file.
-	    shell.copy(op1);
+	    shell.copy(op1, op2);
            }
        if (command=="search")
           {

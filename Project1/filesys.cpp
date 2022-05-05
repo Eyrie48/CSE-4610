@@ -325,14 +325,14 @@ int Filesys::delblock(string file, int blocknumber)
             if(filename[i] == file)
             {
                 firstblock[i] = fat[blocknumber];
-                break;
+                //break;
             }
         }
     }
     else
     {
         int b = block;
-        while(fat[b] != blocknumber)
+        while(fat[b] != blocknumber && fat[block] != 0)
         {
             b = fat[b];
         }
@@ -341,9 +341,10 @@ int Filesys::delblock(string file, int blocknumber)
 
     fat[blocknumber] = fat[0];
     fat[0] = blocknumber;
+    cout << "deleted the block" << endl;
     fssynch();
 
-    return 1;
+    return 0;
 }
 
 int Filesys::readblock(string file, int blocknumber, string& buffer)

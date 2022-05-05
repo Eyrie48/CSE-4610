@@ -16,8 +16,27 @@ int Shell::dir()
     return 1;
 }// lists all files
 
-int Shell::add(string file)
+int Shell::add(string file, string buffer)
 {
+    if(!newfile(file))
+    {
+        cout << "Cannot add file" << endl;
+        return 0;
+    }
+    if(buffer != " ")
+    {
+        vector<string> blocks = block(buffer, getblocksize());
+        for(int i = 0; i < blocks.size(); ++i)
+        {
+            if(!addblock(file, blocks[i]))
+            {
+                cout << "Error cannot add data" << endl;
+                return 0;
+            }
+        }
+    }
+
+    /*
     int code =getfirstblock(file);
     if(code >= 0)
     {
@@ -31,8 +50,7 @@ int Shell::add(string file)
         return 0;
     }
 
-    //not sure added buffere for error
-    string buffer;
+    //not sure added buffer for error
     ///////////////////////
     
     vector<string> blocks = block(buffer, getblocksize());
@@ -45,6 +63,7 @@ int Shell::add(string file)
             return 0;
         }
     }
+    */
     return 1;
 }
 
