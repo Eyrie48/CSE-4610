@@ -12,6 +12,8 @@ int Shell::dir()
     {
         cout << flist[i] << endl;
     }
+    
+    return 1;
 }// lists all files
 
 int Shell::add(string file)
@@ -23,7 +25,7 @@ int Shell::add(string file)
         return 0;
     }
     code = newfile(file);
-    if(code ==0)
+    if(code == 0)
     {
         cout << "failed";
         return 0;
@@ -49,12 +51,14 @@ int Shell::add(string file)
 int Shell::del(string file)
 {
     int block = getfirstblock(file);
-    while(block != 0)
+    while(block > 0)
     {
-       int code = delblock(file, block);
+       //int code = delblock(file, block);
+       delblock(file, block);
        block = getfirstblock(file);
     }    
     rmfile(file);
+    return 1;
 
 }// deletes the file
 
