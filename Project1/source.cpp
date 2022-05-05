@@ -128,7 +128,7 @@ using namespace std;
  Sdisk sdisk=Sdisk("sdisk.txt",256,128);
  Filesys fsys=Filesys("sdisk.txt",256,128);
  Shell shell=Shell("sdisk.txt",256,128);
- Table table=Table("sdisk.txt",256,128);
+ Table table=Table("sdisk.txt",256,128, "flatfile", "indexfile");
  table.build_table("data.txt");
 
  string s;
@@ -160,25 +160,30 @@ using namespace std;
        if (command=="search")
           {
             // The variable op1 is the date
-			getline(cin, op1);
+			//getline(cin, op1);
+			//table.search(op1);
 			table.search(op1);
           }
        if (command=="add")
           {
             // The variable op1 is the new file
+			shell.add(op1);
           }
        if (command=="del")
           {
             // The variable op1 is the file
+			shell.del(op2);
           }
        if (command=="type")
           {
             // The variable op1 is the file
+			shell.type(op1);
           }
        if (command=="copy")
           {
             // The variable op1 is the source file and the variable op2 is the destination file.
-          }
+          shell.copy(op1, op2);
+		  }
        
 	}
 

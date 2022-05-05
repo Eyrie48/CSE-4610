@@ -20,8 +20,8 @@ int Table::build_table(string input_file)
     infile.open(input_file.c_str());
 
     string inputline; 
-    setline(infile, inputline);
-
+    //setline(infile, inputline);
+    
     while(infile.good())
     {
         string key = inputline.substr(0,5); 
@@ -70,7 +70,8 @@ int Table::indexSearch(string value)
     {
         if(k == value)
         {
-            return b; 
+            //return b;
+            return -1; 
         }
 
         istream >> k >> b; 
