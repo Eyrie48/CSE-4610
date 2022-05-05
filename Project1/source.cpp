@@ -97,6 +97,7 @@ int main()
  //It inputs commands as : command op1 op2
  //You should modify it to work for your implementation.
  //
+ Shell shell("sdisk.txt", 256, 128);
  string s;
  string command="go";
  string op1,op2;
