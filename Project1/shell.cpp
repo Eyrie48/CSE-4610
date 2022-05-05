@@ -61,14 +61,15 @@ int Shell::del(string file)
 int Shell::type(string file)
 {
     //edit for type 
-    int block = getfirstblock(file1);
-    int code = newfile(file2);
+    //int block = getfirstblock(file1);
+    //int code = newfile(file2);
+    int block = getfirstblock(file);
     while(block != 0)
     {
         string buffer;
-        readblock(file1, block, buffer);
-        addblock(file2, buffer);
-        block = nextblock(file1, block);
+        readblock(file, block, buffer);
+        //addblock(file2, buffer);
+        block = nextblock(file, block);
     }
 
     return 1;
