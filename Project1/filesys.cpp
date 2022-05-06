@@ -47,7 +47,7 @@ int Filesys::buildfs()
         filename.push_back("XXXXX");
         firstblock.push_back(0);
 	//change from file
-	ostream << "XXXXX" << " " << 0 << " ";
+	    ostream << "XXXXX" << " " << 0 << " ";
     }
 
 
@@ -85,7 +85,7 @@ int Filesys::buildfs()
     
     for(int i =0; i < blocks2.size(); i++)
     {
-    	putblock(2+i, blocks2[i]);
+        putblock(2+i, blocks2[i]);
     }
 	/////////////////////////
     return fssynch();
@@ -94,26 +94,26 @@ int Filesys::buildfs()
 int Filesys::fssynch()
 {
     ostringstream ostream;
+    //ostream << endl;
     for(int i = 0; i < rootsize; i++)
     {
         ostream << filename[i] << " " << firstblock[i] << " ";
         
     }
-    
-    string buffer1 = ostream.str();
-    
-    //unable to define getblock?
-    vector<string> blocks1 = block(buffer1, getblocksize());
-    
 
     ostringstream ostream2; 
-    for(int i = 0; i < fat.size(); i++)
+    //fat.size() or getnumberofblocks()
+    for(int i = 0; i < getnumberofblocks(); i++)
     {
         ostream2 << fat[i] << " "; 
     }
 
+    string buffer1 = ostream.str();
     string buffer2 = ostream2.str();
+
+    vector<string> blocks1 = block(buffer1, getblocksize());
     vector<string> blocks2 = block(buffer2, getblocksize());
+
     putblock(1, blocks1[0]);
 
     for(int i = 0; i < blocks2.size(); i++)
@@ -125,9 +125,11 @@ int Filesys::fssynch()
 }
 
 int Filesys::readfs(){
+
     string buffer1, buffer2; 
     getblock(1, buffer1);
     string tempbuffer;
+
     for(int i = 0; i < fatsize; i++)
     {
         getblock(2+i, tempbuffer);
@@ -157,7 +159,7 @@ int Filesys::readfs(){
         istream2 >> k;
         fat.push_back(k);
     }
-    return 1;
+    return 0;
 }
 
 int Filesys::fsclose()
@@ -226,7 +228,8 @@ int Filesys::rmfile(string file)
 //My code for getfirstblock 
 int Filesys::getfirstblock(string file)
 {
-    for(int i = 0; i < rootsize; i++)
+    //rootsize or filename.size()
+    for(int i = 0; i < filename.size(); i++)
     {
         if(file == filename[i])
         {
@@ -272,6 +275,7 @@ int Filesys::addblock(string file, string block)
             if(filename[i] == file)
             {
                 firstblock[i] = allocate;
+                //change 
             }
         }
     }
@@ -286,6 +290,7 @@ int Filesys::addblock(string file, string block)
     }
     putblock(allocate, block);
     fssynch();
+    //cout << "Finish adding..." << endl;
     //putblock(allocate, block);
     //return 1;
     return allocate;
@@ -297,6 +302,7 @@ bool Filesys::checkblock(string file, int block)
     int blockid = getfirstblock(file);
     if(blockid == -1)
     {
+        cout << "No such file" << endl;
         return false;
     }
     while(blockid != 0)
@@ -308,7 +314,7 @@ bool Filesys::checkblock(string file, int block)
         blockid == fat[blockid];
     }
     //added for void
-    //return false;
+    return false;
 }
 
 int Filesys::delblock(string file, int blocknumber)
@@ -334,17 +340,17 @@ int Filesys::delblock(string file, int blocknumber)
     else
     {
         int b = block;
-        while(fat[b] != blocknumber && fat[block] != 0)
+        while(fat[block] != blocknumber && fat[block] != 0)
         {
-            b = fat[b];
+            block = fat[block];
         }
-        fat[b] == fat[blocknumber];
+        fat[block] == fat[blocknumber];
     }
 
     fat[blocknumber] = fat[0];
     fat[0] = blocknumber;
-    cout << "deleted the block" << endl;
     fssynch();
+    //cout << "Deleted the block" << endl;
 
     return 0;
 }
@@ -358,6 +364,7 @@ int Filesys::readblock(string file, int blocknumber, string& buffer)
     }
     else
     {
+        cout << "Could not perform..." << endl;
         return 0;
     }
 }
@@ -371,6 +378,7 @@ int Filesys::writeblock(string file, int blocknumber, string buffer)
     }
     else
     {
+        cout << "Could not perform..." << endl;
         return 0;
     }
 }
@@ -383,7 +391,8 @@ int Filesys::nextblock(string file, int blocknumber)
     }
     else 
     {
-        return -1;
+        cout << "Could not perform..." << endl;
+        return 0;
     }
 }
 

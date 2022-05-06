@@ -68,7 +68,7 @@ Sdisk::Sdisk(string diskname, int numberofblocks, int blocksize)
 		}
 		if(filesize != (numberofblocks * blocksize))
 		{
-			cout << "Error fileseize does not match" << endl;
+			cout << "Error filesize does not match" << endl;
 			input.close();
 			exit(0);
 		}
