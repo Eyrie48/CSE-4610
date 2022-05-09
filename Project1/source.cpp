@@ -159,7 +159,7 @@ int main()
  */
 /////////////////////////////////////////////
 
-/*
+
 /////////////////////////////////////////////
 	//last part
 
@@ -172,8 +172,8 @@ int main()
  Sdisk sdisk=Sdisk("sdisk.txt",256,128);
  Filesys fsys=Filesys("sdisk.txt",256,128);
  Shell shell=Shell("sdisk.txt",256,128);
- //Table table=Table("sdisk.txt",256,128, "file2", "file1");
- //table.build_table("data.txt");
+ Table table=Table("sdisk.txt",256,128, "file2", "file1");
+ table.build_table("data.txt");
 
  string s;
  string command="go";
@@ -205,13 +205,13 @@ int main()
           {
             // The variable op1 is the date
 			//getline(cin, op1);
-			//table.search(op1);
+			table.search(op1);
 			//table.search(op1);
           }
        if (command=="add")
           {
             // The variable op1 is the new file
-	    shell.add(op1);
+	    shell.add(op1, op2);
 			//fsys.addblock(op1, op2);
           }
        if (command=="del")
@@ -233,7 +233,7 @@ int main()
 	}
 
  return 0;
-*/
+
 
 	
 }

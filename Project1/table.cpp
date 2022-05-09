@@ -1,6 +1,8 @@
 #include "table.h"
 #include "filesys.h"
-#include "block.cpp"
+#include "block.h"
+#include "shell.h"
+#include "sdisk.h"
 #include <sstream>
 #include <cstdlib>
 using namespace std;
@@ -9,6 +11,9 @@ Table::Table(string diskname, int numberofblocks, int blocksize, string flatfile
 {
     this->flatfile = flatfile;
     this->indexfile = indexfile;
+    this->newfile(flatfile);
+    this->newfile(indexfile);
+
 }
 
 int Table::build_table(string input_file)
@@ -80,7 +85,7 @@ int Table::indexSearch(string value)
     return 0;
 }
 
-int Table:: search(string value)
+int Table::search(string value)
 {
     int ecode = indexSearch(value);
     if(ecode == 0)
