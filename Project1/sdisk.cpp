@@ -45,36 +45,27 @@ Sdisk::Sdisk(string diskname, int numberofblocks, int blocksize)
 	this->numberofblocks = numberofblocks;
 	this->blocksize = blocksize;
 
-	ifstream input;
-	ofstream output;
-	input.open(diskname.c_str());
+	fstream input;
+	input.open(diskname.c_str(), ios::in);
 
-	if(!input.is_open())
+	if(input.good())
 	{
-		output.open(diskname.c_str());
-		for(int i = 0; i < numberofblocks * blocksize; ++i)
-		{
-			output << "#";
-		}
-		output.close();
-	}
-	else{
-		char temp;
-		int filesize = 0;
-		input.get(temp);
-		while(!input.eof())
-		{
-			++filesize;
-			input.get(temp);
-		}
-		if(filesize != (numberofblocks * blocksize))
-		{
-			cout << "Error filesize does not match" << endl;
-			input.close();
-			exit(0);
-		}
 		input.close();
+		return;
 	}
+	else
+	{
+		input.close();
+		ofstream outfile;
+		outfile.open(diskname.c_str());
+		for(int i = 0; i < numberofblocks * blocksize; i++)
+		{
+			outfile.put('#');
+		}
+		outfile.close();
+		return;
+	}
+	
 }
 
 int Sdisk::getnumberofblocks()
@@ -120,6 +111,7 @@ int Sdisk::getblock(int blocknumber, string& buffer)
 		cout << "Blocknumber is 0 or blocknumber is less than blocksize * number of blocks" << endl;
 		return 0;
 	}*/
+	//buffer.clear();
 	if (blocknumber > (numberofblocks -1))
 	{
 		return 0;
@@ -148,29 +140,34 @@ int Sdisk::getblock(int blocknumber, string& buffer)
 
 int Sdisk::putblock(int blocknumber, string buffer)
 {
-	fstream iofile;
-	iofile.open(diskname.c_str(), ios::in | ios::out);//ios::binary final part of project
-	buffer.clear();
+	
 
 	//blocksize * numberofblocks
-	if(blocknumber >= 0 && blocknumber < this->numberofblocks-1)
+	if(blocknumber > (numberofblocks-1))
 	{
-		iofile.seekp(blocknumber * blocksize);
-
-		for (int i = 0; i < blocksize; i++)
-		{
-			iofile.put(buffer[i]);
-		}
-
-		cout << "Successfully accessed the file" << endl;
-		return 1;
-	}
-	else
-	{
-		cout << "Blocknumber is 0 or blocknumber is less than blocksize * number of blocks" << endl;
 		return 0;
 	}
-	
+	//else
+	//{
+//		cout << "Blocknumber is 0 or blocknumber is less than blocksize * number of blocks" << endl;
+//		return 0;
+//	}
+	fstream iofile;
+	iofile.open(diskname.c_str(), ios::in | ios::out);//ios::binary final part of project
+	if(!iofile.is_open())
+	{ 
+		return 0;
+	}
+	iofile.seekp(blocknumber * blocksize);
+
+	for (int i = 0; i < buffer.length(); ++i)
+	{
+		iofile.put(buffer[i]);
+	}
+
+	iofile.close();
+	//cout << "Successfully accessed the file" << endl;
+	return 1;
 
 
 	/*

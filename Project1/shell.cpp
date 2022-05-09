@@ -18,25 +18,8 @@ int Shell::dir()
 
 int Shell::add(string file, string buffer)
 {
-    if(!newfile(file))
-    {
-        cout << "Cannot add file" << endl;
-        return 0;
-    }
-    if(buffer != " ")
-    {
-        vector<string> blocks = block(buffer, getblocksize());
-        for(int i = 0; i < blocks.size(); ++i)
-        {
-            if(!addblock(file, blocks[i]))
-            {
-                cout << "Error cannot add data" << endl;
-                return 0;
-            }
-        }
-    }
 
-    /*
+    
     int code =getfirstblock(file);
     if(code >= 0)
     {
@@ -63,7 +46,7 @@ int Shell::add(string file, string buffer)
             return 0;
         }
     }
-    */
+    
     return 1;
 }
 
@@ -73,7 +56,7 @@ int Shell::del(string file)
     while(block > 0)
     {
        //int code = delblock(file, block);
-       delblock(file, block);
+       int code = delblock(file, block);
        block = getfirstblock(file);
     }    
     rmfile(file);
@@ -87,14 +70,19 @@ int Shell::type(string file)
     //int block = getfirstblock(file1);
     //int code = newfile(file2);
     int block = getfirstblock(file);
+    string buffer;
     while(block != 0)
     {
-        string buffer;
-        readblock(file, block, buffer);
+        
+        string temp; 
+        int error = readblock(file, block, buffer);
         //addblock(file2, buffer);
+        buffer += temp;
         block = nextblock(file, block);
     }
 
+    cout << buffer << endl;
+    cout << buffer.length() << endl;
     return 1;
 }//lists the contents of file
 
@@ -102,10 +90,12 @@ int Shell::copy(string file1, string file2)
 {
     int block = getfirstblock(file1);
     int code = newfile(file2);
+    string buffer;
     while(block != 0)
     {
-        string buffer;
-        readblock(file1, block, buffer);
+        string temp;
+        code = readblock(file1, block, temp);
+        buffer += temp;
         addblock(file2, buffer);
         block = nextblock(file1, block);
     }
