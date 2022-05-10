@@ -17,12 +17,13 @@ int Table::build_table(string input_file)
 {
     int code = newfile(indexfile);
     code = newfile(flatfile);
+
     ostringstream ostream; //create indexfile
     ifstream infile;
     infile.open(input_file.c_str());
 
     string inputline; 
-    //setline(infile, inputline);
+    getline(infile, inputline);
     
     while(infile.good())
     {
@@ -57,26 +58,40 @@ int Table::indexSearch(string value)
 {
     string buffer; 
     int blockid= getfirstblock(indexfile);
+    //change
+    string bigBuffer;
+    ///
     while(blockid != 0)
     {
+        /*
         string b;
         readblock(indexfile, blockid, b);
         buffer += b;
         blockid = nextblock(indexfile, blockid);
+        */
+       string buffer; 
+       int error = readblock(indexfile, blockid, buffer);
+       bigBuffer += buffer;
+       blockid = nextblock(indexfile, blockid);
     }
 
+
     istringstream istream;
-    istream.str(buffer);
-    string k, b;
+    //istream.str(buffer);
+    //change
+    istream.str(bigBuffer);
+    //
+    string k;
+    int b;
     istream >> k >> b;
     while(k != "XXXXX")
     {
         if(k == value)
         {
             //return b;
-            //return blockid;
+            return b;
             //return 0;
-            return -1; 
+            //return -1; 
         }
 
         istream >> k >> b; 
@@ -90,14 +105,14 @@ int Table::search(string value)
     int ecode = indexSearch(value);
     if(ecode == 0)
     {
-        cout << "record not found";
+        cout << "record not found" << endl;
         return 0;
     }
     else
     {
         string buffer;
         ecode = readblock(flatfile, ecode, buffer);
-        cout << buffer;
+        cout << buffer << endl;
         return 1;
     }
 }
