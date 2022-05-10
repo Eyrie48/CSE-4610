@@ -11,9 +11,6 @@ Table::Table(string diskname, int numberofblocks, int blocksize, string flatfile
 {
     this->flatfile = flatfile;
     this->indexfile = indexfile;
-    this->newfile(flatfile);
-    this->newfile(indexfile);
-
 }
 
 int Table::build_table(string input_file)
@@ -30,7 +27,7 @@ int Table::build_table(string input_file)
     while(infile.good())
     {
         string key = inputline.substr(0,5); 
-        string rest = inputline.substr(5);
+        string rest = inputline.substr(key.length());
 
         vector<string> blocks = block(inputline, getblocksize());
 
@@ -52,7 +49,7 @@ int Table::build_table(string input_file)
         addblock(indexfile, iblocks[i]);
     }
 
-    return 1;
+    return 0;
 }
 
 int Table::indexSearch(string value)
@@ -76,6 +73,8 @@ int Table::indexSearch(string value)
         if(k == value)
         {
             //return b;
+            //return blockid;
+            //return 0;
             return -1; 
         }
 
