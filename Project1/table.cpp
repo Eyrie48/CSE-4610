@@ -27,7 +27,8 @@ int Table::build_table(string input_file)
     while(infile.good())
     {
         string key = inputline.substr(0,5); 
-        string rest = inputline.substr(key.length());
+        string rest = inputline.substr(5);
+        //string rest = inputline.substr(key.length());
 
         vector<string> blocks = block(inputline, getblocksize());
 
