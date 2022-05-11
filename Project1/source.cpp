@@ -71,7 +71,7 @@ int main()
 		bfile1+="1";
 	}
 	vector<string> blocks=block(bfile1,128); 
-	int blocknumber=0
+	int blocknumber=0;
 	for(int i=0; i< blocks.size(); i++)
 	{
 		blocknumber=fsys.addblock("file1",blocks[i]);
@@ -87,8 +87,8 @@ int main()
 		blocknumber=fsys.addblock("file2",blocks[i]);
 	}
 	fsys.delblock("file2",blocknumber);
-*/
 
+*/
 
 /////////////////////////////////////////////////////
 /*
